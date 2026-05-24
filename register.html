@@ -338,7 +338,7 @@ type="button"
 onclick="goToStep2()"
 class="main-btn mt-2">
 
-    Continue to Company Details
+    Continue 
 
 </button>
 
@@ -572,6 +572,16 @@ document.querySelector('input[placeholder="Confirm Password"]');
 
 
 // STEP 2
+// =============================
+// DUMMY OTP
+// =============================
+
+let generatedOTP = "";
+
+
+
+
+// STEP 2
 
 function goToStep2(){
 
@@ -602,6 +612,80 @@ function goToStep2(){
 
 
 
+    // GENERATE DUMMY OTP
+
+    generatedOTP =
+    Math.floor(
+        100000 + Math.random() * 900000
+    );
+
+
+
+    console.log(
+    "Dummy OTP:",
+    generatedOTP
+    );
+
+
+
+    // SHOW OTP MODAL
+
+    document
+    .getElementById("otpModal")
+    .classList
+    .remove("hidden");
+
+
+
+    document
+    .getElementById("otpModal")
+    .classList
+    .add("flex");
+
+
+
+    // OPTIONAL
+
+    alert(
+    "Dummy OTP: " + generatedOTP
+    );
+
+}
+
+
+
+
+// VERIFY OTP
+
+function verifyOTP(){
+
+
+    const enteredOTP =
+    document.getElementById("otpInput").value;
+
+
+
+    if(enteredOTP !== generatedOTP.toString()){
+
+        alert("Invalid OTP");
+
+        return;
+
+    }
+
+
+
+    // CLOSE OTP MODAL
+
+    document
+    .getElementById("otpModal")
+    .classList
+    .add("hidden");
+
+
+
+    // SHOW STEP 2
+
     step1.style.display = "none";
 
     step2.style.display = "block";
@@ -612,6 +696,8 @@ function goToStep2(){
     "bg-[#2E8B57]",
     "text-white"
     );
+
+
 
     badge1.classList.add(
     "bg-green-100",
@@ -625,6 +711,8 @@ function goToStep2(){
     "text-slate-400"
     );
 
+
+
     badge2.classList.add(
     "bg-[#2E8B57]",
     "text-white"
@@ -632,11 +720,14 @@ function goToStep2(){
 
 
 
-    stepText.innerText = "Step 2 of 2";
+    stepText.innerText =
+    "Step 2 of 2";
+
+
+
+    alert("OTP Verified Successfully");
 
 }
-
-
 
 
 // BACK STEP 1
@@ -852,6 +943,52 @@ districtSelect.addEventListener("change", function(){
 
 
 </script>
+<!-- OTP MODAL -->
 
+<div id="otpModal"
+class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+
+    <div class="bg-white w-full max-w-sm rounded-3xl p-8">
+
+        <div class="text-center mb-6">
+
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+
+                <i class="fa-solid fa-envelope text-[#2E8B57] text-2xl"></i>
+
+            </div>
+
+            <h2 class="text-2xl font-bold text-slate-900">
+                Verify OTP
+            </h2>
+
+            <p class="text-slate-500 text-sm mt-2">
+                Enter OTP sent to your email
+            </p>
+
+        </div>
+
+
+
+        <input
+        type="text"
+        id="otpInput"
+        maxlength="6"
+        placeholder="Enter 6 Digit OTP"
+        class="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-[#2E8B57] text-center text-lg tracking-[8px]">
+
+
+
+        <button
+        onclick="verifyOTP()"
+        class="main-btn mt-5">
+
+            Verify OTP
+
+        </button>
+
+    </div>
+
+</div>
 </body>
 </html>
